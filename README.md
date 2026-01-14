@@ -16,7 +16,6 @@ Menu interactif terminal pour gérer facilement vos connexions VPN CyberGhost av
 - [Configuration avancée](#configuration-avancée)
 - [Dépannage](#dépannage)
 - [Contribution](#contribution)
-- [Licence](#licence)
 - [Auteur](#auteur)
 
 ---
@@ -52,9 +51,9 @@ Ce script remplace **complètement** le CLI officiel et offre :
 
 ### Sécurité
 - **Protection DNS garantie** via `openvpn-systemd-resolved`
-- **Kill switch** automatique lors du changement de serveur
 - **Credentials chiffrés** dans `~/vpn/auth.txt` (chmod 600)
 - **Détection de fuites** avec vérification IP/pays
+- **Pas de Kill switch** Changement de serveur
 
 ### Installation
 - **Assistant d'installation** pas à pas
