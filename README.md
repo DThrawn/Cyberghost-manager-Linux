@@ -2,27 +2,27 @@
 
 Petit gestionnaire interactif pour se connecter rapidement à CyberGhost via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
 
-Ce projet a été créé à l’origine pour mon usage personnel (Pop!_OS), et je le partage tel quel pour dépanner. 
+Ce projet a été créé à l’origine pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
 Premier partage : retours bienvenus, mais le périmètre reste volontairement simple.
 
 ## Fonctionnalités
 
 - Installation automatique des dépendances OpenVPN.
-- Import assisté des fichiers CyberGhost (.ovpn + certificats).
+- Import assisté des fichiers CyberGhost (`.ovpn` + certificats).
 - Menu interactif par pays (100 entrées).
 - Raccourcis optionnels : `vpn`, `monip`, `vpnoff`.
-- Protection DNS anti-fuite (via systemd-resolved) si disponible sur la distro.
+- Protection DNS anti-fuite (via `systemd-resolved`) si disponible sur la distro.
 
 ## Compatibilité
 
-- Testé uniquement sur Pop!_OS.
-- Devrait fonctionner sur Ubuntu (et dérivés Debian) tant que `apt` est disponible.
+- Testé uniquement sur `Pop!_OS`.
+- Devrait fonctionner sur `Ubuntu` (et dérivés `Debian`) tant que `apt` est disponible.
 
 ## Prérequis CyberGhost
 
 Avant la première connexion, il faut télécharger une configuration OpenVPN depuis l’espace client CyberGhost :
-- Download Hub → “Routeurs ou autres appareils” → créer/télécharger la configuration OpenVPN
-- Extraire le .zip : on obtient un fichier `.ovpn` + `ca.crt` + `client.crt` + `client.key`
+- Download Hub → “Routeurs ou autres appareils” → `créer/télécharger` la configuration `OpenVPN`
+- Extraire le `.zip` : on obtient un fichier `.ovpn` + `ca.crt` + `client.crt` + `client.key`
 
 Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) et les copier dans `~/vpn/`.
 
@@ -31,7 +31,7 @@ Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) 
 bash install-cyberghost.sh
 
 Le script crée :
-- `~/vpn
+- `~/vpn`
 - `~/vpn/cyberghost-vpn-manager.sh`
 - `~/vpn/countries.conf`
 
@@ -40,18 +40,18 @@ Le script crée :
 Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
 
 - Lancer le menu :
-  vpn
+  `vpn`
 
 - Afficher l’IP publique :
-  monip
+  `monip`
 
 
 - Couper la connexion OpenVPN (arrêt du processus) :
-  vpnoff
+  `vpnoff`
 
 
 - Sans alias, lancer directement :
-  bash ~/vpn/cyberghost-vpn-manager.sh
+  `bash ~/vpn/cyberghost-vpn-manager.sh`
 
 
 ## Notes importantes
