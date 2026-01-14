@@ -1,87 +1,64 @@
-**Alternative fonctionnelle au CLI CyberGhost officiel défectueux sous Linux.**
+# CyberGhost VPN Manager (OpenVPN) — script perso
 
-Menu interactif terminal pour gérer facilement vos connexions VPN CyberGhost avec protection DNS anti-fuite intégrée. Accédez à 100 pays en quelques secondes sans configuration manuelle.
+Petit gestionnaire interactif pour se connecter rapidement à CyberGhost via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
 
----
-
-## Table des matières
-
-- [Le problème](#le-problème)
-- [La solution](#la-solution)
-- [Fonctionnalités](#fonctionnalités)
-- [Captures d'écran](#captures-décran)
-- [Prérequis](#prérequis)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Configuration avancée](#configuration-avancée)
-- [Dépannage](#dépannage)
-- [Contribution](#contribution)
-- [Auteur](#auteur)
-
----
-
-## Le problème
-
-Le CLI officiel CyberGhost pour Linux (`cyberghostvpn-cli`) est **notoirement défaillant** :
-- Connexions qui échouent aléatoirement
-- Fuites DNS non gérées
-- Interface peu intuitive
-- Bugs non corrigés depuis des années
-- Support technique inexistant
-
-## La solution
-
-Ce script remplace **complètement** le CLI officiel et offre :
-- Connexion fiable à 100% via OpenVPN natif
-- Protection DNS anti-fuite automatique (`openvpn-systemd-resolved`)
-- Menu interactif par pays et continents
-- Installation guidée étape par étape
-- Raccourcis terminal pratiques
-- Connexion en moins de 10 secondes
-
----
+Ce projet a été créé à l’origine pour mon usage personnel (Pop!_OS), et je le partage tel quel pour dépanner. 
+Premier partage : retours bienvenus, mais le périmètre reste volontairement simple.
 
 ## Fonctionnalités
 
-### Interface utilisateur
-- **Menu interactif** organisé par continents (Europe, Asie, Amérique, Afrique, Océanie)
-- **100 pays disponibles** avec codes serveurs à jour
-- **Vérification d'IP** intégrée après connexion
-- **Navigation intuitive** par numéros
+- Installation automatique des dépendances OpenVPN.
+- Import assisté des fichiers CyberGhost (.ovpn + certificats).
+- Menu interactif par pays (100 entrées).
+- Raccourcis optionnels : `vpn`, `monip`, `vpnoff`.
+- Protection DNS anti-fuite (via systemd-resolved) si disponible sur la distro.
 
-### Sécurité
-- **Protection DNS garantie** via `openvpn-systemd-resolved`
-- **Credentials chiffrés** dans `~/vpn/auth.txt` (chmod 600)
-- **Détection de fuites** avec vérification IP/pays
-- **Pas de Kill switch** Changement de serveur
+## Compatibilité
 
-### Installation
-- **Assistant d'installation** pas à pas
-- **Détection automatique** des fichiers CyberGhost
-- **Configuration zéro** : tout est automatisé
-- **Guide intégré** pour créer votre routeur OpenVPN
+- Testé uniquement sur Pop!_OS.
+- Devrait fonctionner sur Ubuntu (et dérivés Debian) tant que `apt` est disponible.
 
-### Raccourcis
-Trois alias pratiques ajoutés à votre `.bashrc` :
-```bash
-vpn       # Lance le menu VPN
-monip     # Affiche votre IP publique actuelle
-vpnoff    # Déconnecte le VPN instantanément
+## Prérequis CyberGhost
+
+Avant la première connexion, il faut télécharger une configuration OpenVPN depuis l’espace client CyberGhost :
+- Download Hub → “Routeurs ou autres appareils” → créer/télécharger la configuration OpenVPN
+- Extraire le .zip : on obtient un fichier `.ovpn` + `ca.crt` + `client.crt` + `client.key`
+
+Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) et les copier dans `~/vpn/`.
+
+## Installation
+
+bash install-cyberghost.sh
+
+Le script crée :
+- `~/vpn
+- `~/vpn/cyberghost-vpn-manager.sh`
+- `~/vpn/countries.conf`
+
+## Utilisation
+
+Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
+
+- Lancer le menu :
+  vpn
+
+- Afficher l’IP publique :
+  monip
 
 
-╔════════════════════════════════════════════════════════════╗
-║     CYBERGHOST VPN MANAGER - 100 PAYS                      ║
-╚════════════════════════════════════════════════════════════╝
+- Couper la connexion OpenVPN (arrêt du processus) :
+  vpnoff
 
-=== Europe ===
-  1) Allemagne                    2) Albanie
-  3) Andorre                      4) Autriche
-  [...]
 
-=== Asie ===
-  75) Arménie                     76) Bangladesh
-  [...]
+- Sans alias, lancer directement :
+  bash ~/vpn/cyberghost-vpn-manager.sh
 
-  0) Deconnecter VPN et quitter
-════════════════════════════════════════════════════════════
-Choisissez un pays (0-100) : _
+
+## Notes importantes
+
+- Ce script n’est pas officiel et n’est pas affilié à CyberGhost.
+- Les identifiants OpenVPN CyberGhost sont demandés au premier lancement et sauvegardés localement dans `~/vpn/auth.txt` (droits restreints).
+
+## Licence
+
+À définir si besoin (sinon, considérer “tous droits réservés”).
