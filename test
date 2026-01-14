@@ -1,0 +1,48 @@
+a partir de la Le script crée :~/vpn/cyberghost-vpn-manager.sh~/vpn/countries.confUtilisationOuvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :Lancer le menu :vpnAfficher l’IP publique :monipCouper la connexion OpenVPN (arrêt du processus) :vpnoffSans alias, lancer directement :bash ~/vpn/cyberghost-vpn-manager.shNotes importantesCe script n’est pas officiel et n’est pas affilié à CyberGhost.Les identifiants OpenVPN CyberGhost sont demandés au premier lancement et sauvegardés localement dans ~/vpn/auth.txt (droits restreints).LicenceÀ définir si besoin (sinon, considérer “tous droits réservés”). je peu pas faire de copier coller, réécris tout ça proprement que je publi a partir de la et que je fasse un copier coller jus qu'à droits réservés. Pour ko fi j'ai créé un compte avec un pseudo dthrawn
+
+```md
+Le script crée :
+- `~/vpn/cyberghost-vpn-manager.sh`
+- `~/vpn/countries.conf`
+
+## Utilisation
+
+Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
+
+- Lancer le menu :
+```bash
+vpn
+```
+
+- Afficher l’IP publique :
+```bash
+monip
+```
+
+- Couper la connexion OpenVPN (arrêt du processus) :
+```bash
+vpnoff
+```
+
+Sans alias, lancer directement :
+```bash
+bash ~/vpn/cyberghost-vpn-manager.sh
+```
+
+## Notes importantes
+
+- Ce script n’est pas officiel et n’est pas affilié à CyberGhost.
+- Les identifiants OpenVPN CyberGhost sont demandés au premier lancement et sauvegardés localement dans `~/vpn/auth.txt` (droits restreints).
+
+## Soutenir le projet
+
+Si ce script vous est utile et que vous souhaitez contribuer :
+
+- Ko-fi : https://ko-fi.com/dthrawn
+
+## Licence
+
+Copyright © 2026 TDarwin — Tous droits r
+éservés.
+```
+
