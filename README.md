@@ -1,8 +1,7 @@
 # CyberGhost VPN Manager (OpenVPN) — script perso
 
-Petit gestionnaire interactif pour se connecter rapidement à CyberGhost via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
-
-Ce projet a été créé à l’origine pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
+Petit gestionnaire interactif pour se connecter rapidement à CyberGhost VPN via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
+Je l'ai créén, à l’origine, pour remplacer l'appli CLI pour Linux officiel. Codé pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
 Premier partage : retours bienvenus, mais le périmètre reste volontairement simple.
 
 ## Fonctionnalités
