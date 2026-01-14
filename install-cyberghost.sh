@@ -1,10 +1,10 @@
 #!/bin/bash
 # ════════════════════════════════════════════════════════════
 # Script: CyberGhost VPN Manager - Installateur Automatique
-# Auteur: TDarwin
+# Auteur: DThrawn
 # Date: 14/01/2026
 # Version: 2.0
-# Copyright © 2026 TDarwin - Tous droits reserves
+# Copyright © 2026 DThrawn - Tous droits reserves
 # ════════════════════════════════════════════════════════════
 #
 # Installation complete avec protection DNS anti-fuite
