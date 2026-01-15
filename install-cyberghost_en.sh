@@ -124,7 +124,8 @@ EOF
 ════════════════════════════════════════════════════════════
 STEP 1: Create your OpenVPN router
 ───────────────────────────────────
-1. Go to: https://my.cyberghostvpn.com/en/download-hub/vpn
+1. Go to: 
+https://my.cyberghostvpn.com/en/download-hub/vpn
 2. Click on: "Routers or other devices"
 3. Click on: "Create a new configuration"
 4. Fill the form:
