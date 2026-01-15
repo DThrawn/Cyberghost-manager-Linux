@@ -29,7 +29,7 @@ Il saura ensuite détecter ces fichiers (dans `~/Téléchargements/`) et les cop
 
 ## Installation
 
-Télécharger le fichier [install-cyberghost.sh](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_fr.sh)
+Télécharger le fichier [install-cyberghost_fr.sh](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_fr.sh)
 
 Ouvrir le terminal dans les téléchargements
 
