@@ -29,17 +29,22 @@ Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) 
 
 Télécharger le fichier `install-cyberghost.sh`
 
-Ouvrir le terminal dans les téléchargements puis :
+Ouvrir le terminal dans les téléchargements
+
 `bash install-cyberghost.sh`
+
 
 Cloner le dépôt :
 `git clone https://github.com/DThrawn/Cyberghost-manager-linux.git` 
 - Aller dans le dossier :
 `cd Cyberghost-manager-linux | bash install-cyberghost.sh`
 
+
  ou
  
+ 
 `curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash`
+
 
 Le script crée :
 - `~/vpn`
