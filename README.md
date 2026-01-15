@@ -35,7 +35,7 @@ Download the [install-cyberghost_en.sh](https://github.com/DThrawn/Cyberghost-ma
 Open terminal in downloads folder
 
 ```bash
-bash install-cyberghost.sh
+bash install-cyberghost_en.sh
 ```
 
 **or**
