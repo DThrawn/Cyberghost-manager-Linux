@@ -36,15 +36,17 @@ Ouvrir le terminal dans les téléchargements
 **ou**
 
 Cloner le dépôt :
-`git clone https://github.com/DThrawn/Cyberghost-manager-linux.git` 
-- Aller dans le dossier :
-`cd Cyberghost-manager-linux | bash install-cyberghost.sh`
+```bash
+git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cyberghost-manager-linux && bash install-cyberghost.sh
+```
 
 
  **ou**
  
- 
-`curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash`
+ Via Curl
+```bash
+curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash
+```
 
 
 **Le script crée :**
