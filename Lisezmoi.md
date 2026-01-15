@@ -4,11 +4,7 @@ Gestionnaire interactif (-13KB), dans le terminal, pour se connecter rapidement 
 
 Alternative a l'application CyberGhost CLI Linux officielle.
 
-Version :
-
-[English](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_en.sh)
-
-[Francais](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_fr.sh)
+[Readme english version](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/README.md)
 
 ## Fonctionnalités
 
