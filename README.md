@@ -4,7 +4,7 @@ Petit gestionnaire interactif pour se connecter rapidement à CyberGhost VPN via
 
 Je l'ai créé, à l’origine, pour remplacer l'appli CLI Linux officiel du site CyberGhost, qui pour moi est tout le temps bugé. Codé pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
 
-Premier partage : retours bienvenus, mais le périmètre reste volontairement simple.
+Premier partage, resté bienveillant : retours bienvenus, mais le setting reste volontairement simple.
 
 ## Fonctionnalités
 
@@ -89,3 +89,6 @@ bash ~/vpn/cyberghost-vpn-manager.sh
 ## Licence
 
 À définir si besoin (sinon, considérer “tous droits réservés”).
+
+## Un café
+<a href='https://ko-fi.com/C1C41SAOT6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
