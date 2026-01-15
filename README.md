@@ -1,13 +1,10 @@
+
 ## CyberGhost VPN Manager (OpenVPN)
 
 Interactive terminal-based manager (-13KB) for quickly connecting to CyberGhost VPN via OpenVPN. Simplicity-oriented configuration.
 Alternative to the official CyberGhost CLI Linux application.
 
-Version :
-
-[English](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_en.sh)
-
-[Francais](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_fr.sh)
+[Lisezmoi version francais](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/README_fr.md)
 
 ## Features
 
