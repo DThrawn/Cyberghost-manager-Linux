@@ -5,7 +5,9 @@ Interactive terminal-based manager (-13KB) for quickly connecting to CyberGhost 
 
 Alternative to the official CyberGhost CLI Linux application.
 
-[Lisezmoi version francais](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/Lisezmoi.md)
+[Lisezmoi version francaise](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/Lisezmoi.md)
+
+<a href='https://ko-fi.com/C1C41SAOT6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## Features
 
@@ -81,6 +83,21 @@ vpnoff
 ```bash
 bash ~/vpn/cyberghost-vpn-manager.sh
 ```
+
+## Uninstall
+
+Just deletes the folder: `~/vpn`
+
+**To completely uninstall CyberGhost VPN Manager:**
+```bash
+sudo apt remove --purge openvpn openvpn-systemd-resolved && rm -rf ~/vpn && sed -i '/# CyberGhost VPN Aliases/,+3d' ~/.bashrc && sudo killall openvpn 2>/dev/null
+```
+
+**What the command does**
+
+1. Removes packages: `openvpn` and `openvpn-systemd-resolved`
+2. Deletes the folder: `~/vpn` and all its contents
+3. Removes aliases from `.bashrc` file
 
 ## Important Notes
 
