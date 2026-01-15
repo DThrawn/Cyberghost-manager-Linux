@@ -34,7 +34,7 @@ Télécharger le fichier [install-cyberghost_fr.sh](https://github.com/DThrawn/C
 Ouvrir le terminal dans les téléchargements
 
 ```bash
-bash install-cyberghost.sh
+bash install-cyberghost_fr.sh
 ```
 
 **ou**
