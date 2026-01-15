@@ -1,9 +1,7 @@
-# CyberGhost VPN Manager (OpenVPN) — script perso
+## CyberGhost VPN Manager (OpenVPN)
 
-Petit gestionnaire interactif pour se connecter rapidement à CyberGhost VPN via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
-Je l'ai créé, à l’origine, pour remplacer l'appli CyberGhost CLI Linux officiel qu'il y as sur le site. Qui, pour moi, est tout le temps bugé. 
-Codé pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
-Premier partage, resté bienveillant : retours bienvenus, mais le setting reste volontairement simple.
+Gestionnaire interactif, dans le terminal, pour se connecter rapidement à CyberGhost VPN via OpenVPN, avec une configuration orientée simplicité.
+Alternative a l'application CyberGhost CLI Linux officielle .
 
 ## Fonctionnalités
 
@@ -20,11 +18,11 @@ Premier partage, resté bienveillant : retours bienvenus, mais le setting reste 
 
 ## Prérequis CyberGhost
 
-Avant la première connexion, il faut télécharger une configuration OpenVPN depuis l’espace client CyberGhost :
+Avant la première connexion, **Le script vous guidera pas à pas lors de l'installation**, il faudra télécharger une configuration OpenVPN depuis l’espace client CyberGhost :
 - `Download Hub` → `Routeurs ou autres appareils` → `créer/télécharger` la configuration `OpenVPN`
 - Extraire le `.zip` : on obtient un fichier `.ovpn` + `ca.crt` + `client.crt` + `client.key`
 
-Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) et les copier dans `~/vpn/`.
+Il saura ensuite détecter ces fichiers (dans `~/Téléchargements/`) et les copier dans `~/vpn/`.
 
 ## Installation
 
@@ -63,14 +61,20 @@ curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/
 Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
 
 - Lancer le menu :
-  `vpn`
+```bash
+vpn
+```
 
 - Afficher l’IP publique :
-  `monip`
+```bash
+monip
+  ```
 
 
 - Couper la connexion OpenVPN (arrêt du processus) :
-  `vpnoff`
+```bash
+vpnoff
+```
 
 
 - Sans alias, lancer directement :
@@ -85,9 +89,19 @@ bash ~/vpn/cyberghost-vpn-manager.sh
 - Les identifiants OpenVPN CyberGhost sont demandés au premier lancement et sauvegardés localement dans `~/vpn/auth.txt` (droits restreints).
 - Pas de Kill Switch
 
+## À propos
+
+Ce script a été créé pour remplacer l'application CyberGhost CLI Linux officielle disponible sur le site, qui présente des bugs récurrents dans mon cas d'usage.
+
+Développé initialement pour un usage personnel sur Pop!_OS (dérivé Ubuntu), je le partage tel quel pour dépanner d'autres utilisateurs. 
+
+Premier partage public : vos retours sont bienvenus, restez bienveillant. La configuration reste volontairement simple et la mise en forme est gérée automatiquement par le script d'installation.
+
+## Soutien
+Si ce projet vous est utile, vous pouvez m'offrir un café :
+
+<a href='https://ko-fi.com/C1C41SAOT6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ## Licence
 
-À définir si besoin (sinon, considérer “tous droits réservés”).
-
-## Un café
-<a href='https://ko-fi.com/C1C41SAOT6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+MIT License - Libre d'utilisation et de modification.
