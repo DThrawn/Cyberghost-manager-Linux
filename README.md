@@ -42,14 +42,14 @@ bash install-cyberghost.sh
 
 Clone the repository:
 ```bash
-git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cyberghost-manager-linux && bash install-cyberghost.sh
+git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cyberghost-manager-linux && bash install-cyberghost_en.sh
 ```
 
 **or**
 
 Via Curl
 ```bash
-curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash
+curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost_en.sh | bash
 ```
 
 **The script creates:**
