@@ -20,7 +20,7 @@ Premier partage : retours bienvenus, mais le périmètre reste volontairement si
 ## Prérequis CyberGhost
 
 Avant la première connexion, il faut télécharger une configuration OpenVPN depuis l’espace client CyberGhost :
-- Download Hub → “Routeurs ou autres appareils” → `créer/télécharger` la configuration `OpenVPN`
+- `Download Hub` → `Routeurs ou autres appareils` → `créer/télécharger` la configuration `OpenVPN`
 - Extraire le `.zip` : on obtient un fichier `.ovpn` + `ca.crt` + `client.crt` + `client.key`
 
 Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) et les copier dans `~/vpn/`.
