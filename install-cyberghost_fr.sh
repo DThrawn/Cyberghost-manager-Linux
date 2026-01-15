@@ -9,19 +9,23 @@ print_header() {
 clear
 print_header "INSTALLATION CYBERGHOST VPN MANAGER"
 cat << 'EOF'
+
 Ce script va installer :
   - OpenVPN + protection DNS anti-fuite
   - Un gestionnaire interactif pour 100 pays
   - Des raccourcis clavier (vpn, monip, vpnoff)
+  
 PREREQUIS :
   Vous devez avoir telecharge vos fichiers CyberGhost depuis :
   https://my.cyberghostvpn.com/fr/download-hub/vpn
   (Si ce n'est pas fait, le script vous guidera)
+  
 EOF
 read -p "Appuyez sur Entree pour continuer..."
 clear
 print_header "ETAPE 1/5 : INSTALLATION DES DEPENDANCES"
 cat << 'EOF'
+
 Installation de : openvpn, curl, openvpn-systemd-resolved
 EOF
 sudo apt update -qq
@@ -58,6 +62,7 @@ check_dependencies() {
     clear
     print_header "INSTALLATION DES DEPENDANCES NECESSAIRES"
     cat << EOF
+    
 Packages manquants:
 $(printf '   - %s\n' "${packages_missing[@]}")
 EOF
@@ -78,10 +83,15 @@ first_time_setup() {
     clear
     print_header "CONFIGURATION DES RACCOURCIS"
     cat << 'EOF'
+    
 Voulez-vous installer les raccourcis suivants ?
+
   vpn      - Ouvre le menu VPN
+  
   monip    - Affiche votre IP actuelle
+  
   vpnoff   - Deconnecte le VPN rapidement
+  
 EOF
     read -p "Installer les raccourcis ? (o/n) : " alias_choice
     if [[ "$alias_choice" =~ ^[oOyY]$ ]] && ! grep -q "alias vpn=" ~/.bashrc; then
@@ -92,11 +102,17 @@ alias vpnoff='sudo killall openvpn && echo "VPN deconnecte"'
 ALIASES
         cat << 'EOF'
 RACCOURCIS INSTALLES !
+
 A partir du PROCHAIN terminal, tapez simplement :
+
   vpn        - Pour vous connecter
+  
   monip      - Pour voir votre IP
+  
   vpnoff     - Pour deconnecter
+  
 Dans CE terminal actuel, tapez : source ~/.bashrc
+
 EOF
         read -p "Appuyez sur Entree pour continuer..."
     fi
@@ -111,6 +127,7 @@ check_and_setup_files() {
     [ ${#files_missing[@]} -eq 0 ] && return 0
     clear
     print_header "FICHIERS CYBERGHOST MANQUANTS"
+    
     cat << EOF
 Fichiers introuvables :
 $(printf '   - %s\n' "${files_missing[@]}")
@@ -146,7 +163,7 @@ https://my.cyberghostvpn.com/fr/download-hub/vpn
 ETAPE 2 : Preparer les fichiers
 ────────────────────────────────
 
-6. Allez dans ~/Telechargements/
+6. Allez dans ~/Téléchargements/
 
 7. Faites clic droit sur le fichier .zip
    - "Extraire ici"
@@ -162,8 +179,9 @@ EOF
         read -p "Appuyez sur Entree quand vous avez termine..."
     else
         cat << 'EOF'
+        
 Assurez-vous d'avoir dezippe les fichiers dans :
-  ~/Telechargements/ ou ~/Telechargements/*_openvpn/
+  ~/Téléchargements/ ou ~/Téléchargements/*_openvpn/
   
 EOF
         read -p "Appuyez sur Entree pour lancer la recherche automatique..."
@@ -171,7 +189,7 @@ EOF
     clear
     echo "Recherche automatique des fichiers..."
     echo ""
-    local search_base="$HOME/Telechargements"
+    local search_base="$HOME/Téléchargements"
     local search_dirs=("$search_base")
     for dir in "$search_base"/*_openvpn; do
         [ -d "$dir" ] && search_dirs+=("$dir")
@@ -203,8 +221,10 @@ setup_credentials() {
     clear
     print_header "CONFIGURATION DES IDENTIFIANTS"
     cat << 'EOF'
+    
 Pour obtenir vos identifiants, allez sur :
 https://my.cyberghostvpn.com/fr/settings/manage-devices
+
 EOF
     read -p "Username CyberGhost: " username
     read -sp "Password: " password
@@ -315,6 +335,9 @@ main_loop() {
         if [ -n "${COUNTRY_CODE[$choice]}" ]; then
             connect_to_country "${COUNTRY_CODE[$choice]}" "${COUNTRY_NAME[$choice]}"
             check_vpn
+            echo ""
+            echo "!!! Garder ce terminal ouvert pour garder le VPN actif !!!
+            echo ""
             echo "════════════════════════════════════════════════════════════"
             echo "  1) Changer de localisation"
             echo "  2) Deconnecter VPN et quitter"
@@ -452,10 +475,15 @@ print_header "INSTALLATION TERMINEE !"
 echo ""
 if grep -q "alias vpn=" ~/.bashrc; then
     cat << 'EOF'
+    
 RACCOURCIS CREES (disponibles apres redemarrage du terminal) :
+
    - vpn      - Ouvre le menu VPN
+   
    - monip    - Affiche votre IP actuelle
+   
    - vpnoff   - Deconnecte le VPN rapidement
+   
 EOF
     touch "$VPN_DIR/.installed"
 fi
@@ -463,9 +491,13 @@ cat << 'EOF'
 Fichiers crees :
    ~/vpn/cyberghost-vpn-manager.sh
    ~/vpn/countries.conf (100 pays)
+   
 ════════════════════════════════════════════════════════════
+
 Que voulez-vous faire maintenant ?
+
   1) Lancer le gestionnaire VPN maintenant
+  
   2) Quitter (vous pourrez lancer avec: vpn)
 EOF
 read -p "Votre choix (1-2) : " final_choice
@@ -478,8 +510,11 @@ case $final_choice in
         ;;
     2)
         cat << 'EOF'
+        
 Installation terminee !
+
 Pour lancer le VPN plus tard, tapez : vpn
+
 (ou: bash ~/vpn/cyberghost-vpn-manager.sh)
 EOF
         ;;
