@@ -28,6 +28,7 @@ Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) 
 ## Installation
 
 Télécharger le fichier `install-cyberghost.sh`
+
 Ouvrir le terminal dans les téléchargements puis :
 `bash install-cyberghost.sh`
 
