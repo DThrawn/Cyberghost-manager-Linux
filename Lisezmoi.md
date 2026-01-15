@@ -6,6 +6,8 @@ Alternative a l'application CyberGhost CLI Linux officielle.
 
 [Readme english version](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/README.md)
 
+<a href='https://ko-fi.com/C1C41SAOT6' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ## Fonctionnalités
 
 - Installation automatique des dépendances OpenVPN.
@@ -85,6 +87,20 @@ vpnoff
 bash ~/vpn/cyberghost-vpn-manager.sh
 ```
 
+## Désinstallation
+
+Simplement éffacer le dossier : `~/vpn`
+
+**Pour désinstaller complètement CyberGhost VPN Manager :**
+```bash
+sudo apt remove --purge openvpn openvpn-systemd-resolved && rm -rf ~/vpn && sed -i '/# Alias VPN CyberGhost/,+3d' ~/.bashrc && sudo killall openvpn 2>/dev/null
+```
+
+## Ce que fait la commande
+
+1. Supprime les packages : `openvpn` et `openvpn-systemd-resolved`
+2. Efface le dossier : `~/vpn` et tout son contenu
+3. Retire les alias du fichier `.bashrc`
 
 ## Notes importantes
 
