@@ -122,21 +122,32 @@ EOF
 ════════════════════════════════════════════════════════════
  GUIDE COMPLET - CREATION DU ROUTEUR CYBERGHOST
 ════════════════════════════════════════════════════════════
+
 ETAPE 1 : Creer votre routeur OpenVPN
 ─────────────────────────────────────
-1. Allez sur : https://my.cyberghostvpn.com/fr/download-hub/vpn
+
+1. Allez sur : 
+https://my.cyberghostvpn.com/fr/download-hub/vpn
+
 2. Cliquez sur : "Routeurs ou autres appareils"
+
 3. Cliquez sur : "Creer une nouvelle configuration"
+
 4. Remplissez le formulaire :
    - PROTOCOLE : Selectionnez "OpenVPN"
    - PAYS : Choisissez n'importe lequel (ex: France)
    - GROUPE DE SERVEURS : Selectionnez un groupe
    - NOM : Tapez "Linux" (ou autre nom)
+   
 5. Cliquez sur : "Telecharger la configuration"
    - Un fichier .zip sera telecharge
+
+   
 ETAPE 2 : Preparer les fichiers
 ────────────────────────────────
+
 6. Allez dans ~/Telechargements/
+
 7. Faites clic droit sur le fichier .zip
    - "Extraire ici"
 - Un dossier *_openvpn/ apparait avec 4 fichiers :
@@ -144,13 +155,16 @@ ETAPE 2 : Preparer les fichiers
    + ca.crt
    + client.crt
    + client.key
+   
 Le script va maintenant les detecter automatiquement !
+
 EOF
         read -p "Appuyez sur Entree quand vous avez termine..."
     else
         cat << 'EOF'
 Assurez-vous d'avoir dezippe les fichiers dans :
   ~/Telechargements/ ou ~/Telechargements/*_openvpn/
+  
 EOF
         read -p "Appuyez sur Entree pour lancer la recherche automatique..."
     fi
