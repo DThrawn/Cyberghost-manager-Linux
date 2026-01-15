@@ -55,6 +55,7 @@ curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/
 - `~/vpn`
 - `~/vpn/cyberghost-vpn-manager.sh`
 - `~/vpn/countries.conf`
+- `~/vpn/auth.txt`
 
 ## Utilisation
 
