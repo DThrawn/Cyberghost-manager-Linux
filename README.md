@@ -1,6 +1,7 @@
 ## CyberGhost VPN Manager (OpenVPN)
 
-Gestionnaire interactif (-13KB), dans le terminal, pour se connecter rapidement à CyberGhost VPN via OpenVPN, avec une configuration orientée simplicité.
+Gestionnaire interactif (-13KB), dans le terminal, pour se connecter rapidement à CyberGhost VPN via OpenVPN. Configuration orientée simplicité.
+
 Alternative a l'application CyberGhost CLI Linux officielle .
 
 ## Fonctionnalités
