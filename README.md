@@ -75,6 +75,7 @@ Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
 
 - Ce script n’est pas officiel et n’est pas affilié à CyberGhost.
 - Les identifiants OpenVPN CyberGhost sont demandés au premier lancement et sauvegardés localement dans `~/vpn/auth.txt` (droits restreints).
+- Pas de Kill Switch
 
 ## Licence
 
