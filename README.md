@@ -2,6 +2,7 @@
 ## CyberGhost VPN Manager (OpenVPN)
 
 Interactive terminal-based manager (-13KB) for quickly connecting to CyberGhost VPN via OpenVPN. Simplicity-oriented configuration.
+
 Alternative to the official CyberGhost CLI Linux application.
 
 [Lisezmoi version francais](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/main/Lisezmoi.md)
