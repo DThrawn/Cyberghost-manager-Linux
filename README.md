@@ -27,6 +27,13 @@ Le script sait ensuite détecter ces fichiers (ex: dans `~/Téléchargements/`) 
 
 ## Installation
 
+Cloner le dépôt :
+'git clone https://github.com/DThrawn/Cyberghost-manager-linux.git'  
+- Aller dans le dossier :
+'cd Cyberghost-manager-linux | bash install-cyberghost.sh'  
+
+curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash
+
 bash install-cyberghost.sh
 
 Le script crée :
