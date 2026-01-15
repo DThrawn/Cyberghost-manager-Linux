@@ -1,5 +1,0 @@
-Installation (méthode Git recommandée)Cloner le dépôt :
-git clone https://github.com/DThrawn/Cyberghost-manager-linux.git  �Aller dans le dossier :
-cd Cyberghost-manager-linux  �(Optionnel) Rendre le script exécutable :
-chmod +x install-cyberghost.shLancer l’installation :
-bash install-cyberghost.shInstallation (méthode directe, sans Git)curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash
