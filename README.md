@@ -30,7 +30,7 @@ It will then detect these files (in `~/Downloads/`) and copy them to `~/vpn/`.
 
 ## Installation
 
-Download the [install-cyberghost.sh](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_en.sh) file
+Download the [install-cyberghost_en.sh](https://github.com/DThrawn/Cyberghost-manager-Linux/blob/d8f13552cc60f8b574736196a939ced2dcdba813/install-cyberghost_en.sh) file
 
 Open terminal in downloads folder
 
