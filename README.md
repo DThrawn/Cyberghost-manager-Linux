@@ -2,7 +2,8 @@
 
 Petit gestionnaire interactif pour se connecter rapidement à CyberGhost VPN via OpenVPN, avec une configuration orientée simplicité (installation en une commande, utilisation via un menu).
 
-Je l'ai créé, à l’origine, pour remplacer l'appli CLI Linux officiel du site CyberGhost, qui pour moi est tout le temps bugé. Codé pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
+Je l'ai créé, à l’origine, pour remplacer l'appli CyberGhost CLI Linux officiel qu'il y as sur le site. Qui, pour moi, est tout le temps bugé. 
+Codé pour mon usage personnel sur `Pop!_OS`un derivé de `Ubuntu`, et je le partage tel quel pour dépanner. 
 
 Premier partage, resté bienveillant : retours bienvenus, mais le setting reste volontairement simple.
 
