@@ -1,11 +1,64 @@
 #!/bin/bash
+# ════════════════════════════════════════════════════════════
+# Script: CyberGhost VPN Manager - Installateur Automatique
+# Auteur: TDarwin
+# Date: 14/01/2026
+# Version: 2.0
+# Copyright © 2026 TDarwin - Tous droits reserves
+# ════════════════════════════════════════════════════════════
+#
+# Installation complete avec protection DNS anti-fuite
+# Gestionnaire interactif pour 100 pays
+#
+# UTILISATION:
+#   bash install-cyberghost.sh
+#
+# ════════════════════════════════════════════════════════════
 set -e
+
 VPN_DIR="$HOME/vpn"
+SCRIPT_PATH="$(readlink -f "$0")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+SCRIPT_NAME="$(basename "$SCRIPT_PATH")"
+
 print_header() {
     echo "╔════════════════════════════════════════════════════════════╗"
     printf "║   %-56s ║\n" "$1"
     echo "╚════════════════════════════════════════════════════════════╝"
 }
+
+cleanup_installation() {
+    echo ""
+    echo "════════════════════════════════════════════════════════════"
+    read -p "Supprimer le fichier d'installation ? (o/n): " cleanup_choice
+
+    if [[ "$cleanup_choice" =~ ^[oOyY]$ ]]; then
+        # Si lancé depuis un repo git cloné
+        if [ -d "$SCRIPT_DIR/.git" ]; then
+            echo ""
+            echo "Dépôt Git détecté: $SCRIPT_DIR"
+            read -p "Supprimer tout le dossier du dépôt ? (o/n): " delete_repo
+            if [[ "$delete_repo" =~ ^[oOyY]$ ]]; then
+                cd "$HOME"
+                rm -rf "$SCRIPT_DIR"
+                echo "✓ Dépôt supprimé: $SCRIPT_DIR"
+            else
+                echo "✓ Dépôt conservé"
+            fi
+        else
+            # Fichier téléchargé seul
+            rm -f "$SCRIPT_PATH"
+            echo "✓ Fichier d'installation supprimé: $SCRIPT_NAME"
+        fi
+        echo ""
+        echo "Installation nettoyée ! Le dossier ~/vpn reste intact."
+    else
+        echo ""
+        echo "✓ Fichier d'installation conservé: $SCRIPT_PATH"
+    fi
+}
+
+# Ecran de bienvenue
 clear
 print_header "INSTALLATION CYBERGHOST VPN MANAGER"
 cat << 'EOF'
@@ -14,59 +67,83 @@ Ce script va installer :
   - OpenVPN + protection DNS anti-fuite
   - Un gestionnaire interactif pour 100 pays
   - Des raccourcis clavier (vpn, monip, vpnoff)
-  
+
 PREREQUIS :
   Vous devez avoir telecharge vos fichiers CyberGhost depuis :
   https://my.cyberghostvpn.com/fr/download-hub/vpn
   (Si ce n'est pas fait, le script vous guidera)
-  
+
 EOF
 read -p "Appuyez sur Entree pour continuer..."
+
+# 1. Installation des dependances
 clear
 print_header "ETAPE 1/5 : INSTALLATION DES DEPENDANCES"
 cat << 'EOF'
 
-Installation de : openvpn, curl, openvpn-systemd-resolved
+Installation de : openvpn, curl, openvpn-systemd-resolved, xdg-user-dirs
+
 EOF
 sudo apt update -qq
-sudo apt install -y openvpn curl openvpn-systemd-resolved
+sudo apt install -y openvpn curl openvpn-systemd-resolved xdg-user-dirs
 echo ""
 echo "Installation terminee avec succes !"
 sleep 2
+
+# 2. Creation du dossier VPN
 clear
 print_header "ETAPE 2/5 : CREATION DU DOSSIER ~/vpn"
 echo ""
 mkdir -p "$VPN_DIR"
 echo "Dossier ~/vpn cree"
 sleep 1
+
+# 3. Creation du script principal
 clear
 print_header "ETAPE 3/5 : CREATION DU GESTIONNAIRE VPN"
 echo ""
 cat > "$VPN_DIR/cyberghost-vpn-manager.sh" << 'MAINSCRIPT'
 #!/bin/bash
+################################################################################
+#
+#  CYBERGHOST VPN MANAGER - GESTIONNAIRE INTERACTIF
+#
+#  Connexion simplifiee a 100 pays via CyberGhost
+#  Protection DNS anti-fuite integree
+#
+################################################################################
+
 VPN_DIR="$HOME/vpn"
 OVPN_FILE="$VPN_DIR/openvpn.ovpn"
 AUTH_FILE="$VPN_DIR/auth.txt"
 COUNTRIES_FILE="$VPN_DIR/countries.conf"
+
 print_header() {
     echo "╔════════════════════════════════════════════════════════════╗"
     printf "║   %-56s ║\n" "$1"
     echo "╚════════════════════════════════════════════════════════════╝"
 }
+
 check_dependencies() {
     local packages_missing=()
+
     command -v openvpn &> /dev/null || packages_missing+=("openvpn")
     command -v curl &> /dev/null || packages_missing+=("curl")
+    command -v xdg-user-dir &> /dev/null || packages_missing+=("xdg-user-dirs")
     dpkg -l | grep -q "openvpn-systemd-resolved" || packages_missing+=("openvpn-systemd-resolved")
+
     [ ${#packages_missing[@]} -eq 0 ] && return 0
+
     clear
     print_header "INSTALLATION DES DEPENDANCES NECESSAIRES"
     cat << EOF
-    
+
 Packages manquants:
 $(printf '   - %s\n' "${packages_missing[@]}")
+
 EOF
     read -p "Installer maintenant ? (o/n) : " install_choice
+
     if [[ "$install_choice" =~ ^[oOyY]$ ]]; then
         echo "Installation en cours..."
         sudo apt update && sudo apt install -y "${packages_missing[@]}"
@@ -77,62 +154,72 @@ EOF
         exit 1
     fi
 }
+
 first_time_setup() {
     local flag="$VPN_DIR/.installed"
     [ -f "$flag" ] && return 0
+
     clear
     print_header "CONFIGURATION DES RACCOURCIS"
     cat << 'EOF'
-    
+
 Voulez-vous installer les raccourcis suivants ?
 
   vpn      - Ouvre le menu VPN
-  
   monip    - Affiche votre IP actuelle
-  
   vpnoff   - Deconnecte le VPN rapidement
-  
+
 EOF
     read -p "Installer les raccourcis ? (o/n) : " alias_choice
+
     if [[ "$alias_choice" =~ ^[oOyY]$ ]] && ! grep -q "alias vpn=" ~/.bashrc; then
         cat >> ~/.bashrc << 'ALIASES'
+
+# Alias VPN CyberGhost
 alias vpn='bash ~/vpn/cyberghost-vpn-manager.sh'
 alias monip='curl -s ifconfig.me && echo'
 alias vpnoff='sudo killall openvpn && echo "VPN deconnecte"'
 ALIASES
         cat << 'EOF'
+
 RACCOURCIS INSTALLES !
 
 A partir du PROCHAIN terminal, tapez simplement :
 
   vpn        - Pour vous connecter
-  
   monip      - Pour voir votre IP
-  
   vpnoff     - Pour deconnecter
-  
+
 Dans CE terminal actuel, tapez : source ~/.bashrc
 
 EOF
         read -p "Appuyez sur Entree pour continuer..."
     fi
+
     touch "$flag"
 }
+
 check_and_setup_files() {
     local files_needed=("openvpn.ovpn" "ca.crt" "client.crt" "client.key")
     local files_missing=()
+
     for file in "${files_needed[@]}"; do
         [ ! -f "$VPN_DIR/$file" ] && files_missing+=("$file")
     done
+
     [ ${#files_missing[@]} -eq 0 ] && return 0
+
     clear
     print_header "FICHIERS CYBERGHOST MANQUANTS"
-    
     cat << EOF
+
 Fichiers introuvables :
 $(printf '   - %s\n' "${files_missing[@]}")
+
 EOF
+
     read -p "Avez-vous deja cree un routeur OpenVPN sur CyberGhost ? (o/n) : " router_existe
+
     if [[ ! "$router_existe" =~ ^[oOyY]$ ]]; then
         clear
         cat << 'EOF'
@@ -142,8 +229,7 @@ EOF
 
 ETAPE 1 : Creer votre routeur OpenVPN
 ─────────────────────────────────────
-
-1. Allez sur : 
+1. Allez sur :
 https://my.cyberghostvpn.com/fr/download-hub/vpn
 
 2. Cliquez sur : "Routeurs ou autres appareils"
@@ -155,50 +241,77 @@ https://my.cyberghostvpn.com/fr/download-hub/vpn
    - PAYS : Choisissez n'importe lequel (ex: France)
    - GROUPE DE SERVEURS : Selectionnez un groupe
    - NOM : Tapez "Linux" (ou autre nom)
-   
+
 5. Cliquez sur : "Telecharger la configuration"
    - Un fichier .zip sera telecharge
 
-   
 ETAPE 2 : Preparer les fichiers
 ────────────────────────────────
-
-6. Allez dans ~/Téléchargements/
+6. Allez dans votre dossier Téléchargements
 
 7. Faites clic droit sur le fichier .zip
    - "Extraire ici"
+
 - Un dossier *_openvpn/ apparait avec 4 fichiers :
    + xxxxx.ovpn
    + ca.crt
    + client.crt
    + client.key
-   
+
 Le script va maintenant les detecter automatiquement !
 
 EOF
         read -p "Appuyez sur Entree quand vous avez termine..."
     else
         cat << 'EOF'
-        
-Assurez-vous d'avoir dezippe les fichiers dans :
-  ~/Téléchargements/ ou ~/Téléchargements/*_openvpn/
-  
+
+Assurez-vous d'avoir dezippe les fichiers dans votre dossier Téléchargements
+
 EOF
         read -p "Appuyez sur Entree pour lancer la recherche automatique..."
     fi
+
     clear
     echo "Recherche automatique des fichiers..."
     echo ""
-    local search_base="$HOME/Téléchargements"
+
+    # Detection universelle du dossier Téléchargements
+    local search_base
+    if command -v xdg-user-dir &> /dev/null; then
+        search_base=$(xdg-user-dir DOWNLOAD 2>/dev/null)
+    fi
+
+    # Fallback si xdg-user-dir echoue
+    if [ -z "$search_base" ] || [ ! -d "$search_base" ]; then
+        for possible_dir in "$HOME/Téléchargements" "$HOME/Downloads" "$HOME/Telechargements"; do
+            if [ -d "$possible_dir" ]; then
+                search_base="$possible_dir"
+                break
+            fi
+        done
+    fi
+
+    if [ -z "$search_base" ] || [ ! -d "$search_base" ]; then
+        echo "⚠ Impossible de trouver le dossier Téléchargements"
+        echo "Veuillez copier manuellement les fichiers dans ~/vpn/"
+        exit 1
+    fi
+
+    echo "Recherche dans : $search_base"
+    echo ""
+
     local search_dirs=("$search_base")
+
     for dir in "$search_base"/*_openvpn; do
         [ -d "$dir" ] && search_dirs+=("$dir")
     done
+
     local found_files=0
     for file in "${files_missing[@]}"; do
         for search_dir in "${search_dirs[@]}"; do
             local found_file
             [ "$file" = "openvpn.ovpn" ] && found_file=$(find "$search_dir" -maxdepth 1 -name "*.ovpn" 2>/dev/null | head -1) || found_file=$(find "$search_dir" -maxdepth 1 -name "$file" 2>/dev/null | head -1)
+
             if [ -n "$found_file" ] && [ -f "$found_file" ]; then
                 [ "$file" = "openvpn.ovpn" ] && cp "$found_file" "$VPN_DIR/openvpn.ovpn" || cp "$found_file" "$VPN_DIR/"
                 echo "$file trouve et copie"
@@ -207,30 +320,37 @@ EOF
             fi
         done
     done
+
     echo ""
     if [ $found_files -lt ${#files_missing[@]} ]; then
         echo "Fichiers manquants. Copiez-les manuellement dans ~/vpn/"
         echo "puis relancez le script."
         exit 1
     fi
+
     echo "Tous les fichiers sont prets !"
     sleep 2
 }
+
 setup_credentials() {
     [ -f "$AUTH_FILE" ] && [ -s "$AUTH_FILE" ] && return 0
+
     clear
     print_header "CONFIGURATION DES IDENTIFIANTS"
     cat << 'EOF'
-    
+
 Pour obtenir vos identifiants, allez sur :
 https://my.cyberghostvpn.com/fr/settings/manage-devices
 
 EOF
+
     read -p "Username CyberGhost: " username
     read -sp "Password: " password
     echo ""
+
     printf '%s\n%s\n' "$username" "$password" > "$AUTH_FILE"
     chmod 600 "$AUTH_FILE"
+
     echo ""
     echo "Identifiants sauvegardes"
     sleep 1
@@ -238,20 +358,32 @@ EOF
 connect_to_country() {
     local country_code=$1
     local country_name=$2
+
     sudo killall openvpn 2>/dev/null
     sleep 1
+
     sudo sed -i "s/^remote .*/remote 87-1-${country_code}.cg-dialup.net 443/" "$OVPN_FILE"
+
     echo "Connexion a $country_name..."
-    grep -q "auth-user-pass.*auth.txt" "$OVPN_FILE" || sudo sed -i "s|auth-user-pass.*|auth-user-pass $AUTH_FILE|" "$OVPN_FILE"
+
+    grep -q "auth-user-pass.*auth.txt" "$OVPN_FILE" || \
+        sudo sed -i "s|auth-user-pass.*|auth-user-pass $AUTH_FILE|" "$OVPN_FILE"
+
     sudo sed -i '/# Protection DNS/d; /script-security/d; /update-systemd-resolved/d; /down-pre/d; /dhcp-option DOMAIN-ROUTE/d' "$OVPN_FILE"
+
     cat >> "$OVPN_FILE" << 'EOL'
+
+# Protection DNS - Empeche les fuites
 script-security 2
 up /etc/openvpn/update-systemd-resolved
 down /etc/openvpn/update-systemd-resolved
 down-pre
 dhcp-option DOMAIN-ROUTE .
 EOL
+
     cd "$VPN_DIR" && sudo openvpn --config "$OVPN_FILE" --daemon
+
+    # Attendre que l'interface tun0 soit active
     echo "Etablissement du tunnel VPN..."
     local count=0
     while [ $count -lt 15 ]; do
@@ -261,49 +393,67 @@ EOL
         sleep 1
         ((count++))
     done
+
+    # Attendre encore que le routage soit etabli (important !)
     sleep 5
+
     clear
     echo "VPN $country_name connecte !"
     echo "Protection DNS activee"
 }
+
 check_vpn() {
     echo ""
     echo "Verification de la connexion..."
+
     local current_ip
     current_ip=$(curl -s --max-time 5 ifconfig.me 2>/dev/null)
+
     if [ -z "$current_ip" ]; then
         echo "Impossible de recuperer l'IP"
     else
         echo "IP actuelle : $current_ip"
+
         local country
         country=$(curl -s --max-time 5 "https://ipapi.co/${current_ip}/country_name/" 2>/dev/null)
+
         [ -n "$country" ] && echo "Pays detecte : $country"
     fi
+
     echo ""
 }
+
 load_countries() {
     [ ! -f "$COUNTRIES_FILE" ] && { echo "countries.conf manquant !"; exit 1; }
+
     declare -gA COUNTRY_CODE COUNTRY_NAME COUNTRY_CONTINENT
+
     while IFS='|' read -r num code name continent; do
         [[ "$num" =~ ^#.*$ ]] || [ -z "$num" ] && continue
+
         COUNTRY_CODE[$num]="$code"
         COUNTRY_NAME[$num]="$name"
         COUNTRY_CONTINENT[$num]="$continent"
     done < "$COUNTRIES_FILE"
 }
+
 show_menu() {
     clear
     local total_countries=$(grep -c '^[0-9]' "$COUNTRIES_FILE" 2>/dev/null || echo "100")
+
     echo "╔════════════════════════════════════════════════════════════╗"
     printf "║     CYBERGHOST VPN MANAGER - %-2d PAYS                     ║\n" "$total_countries"
     echo "╚════════════════════════════════════════════════════════════╝"
     echo ""
+
     local current_continent=""
     local max_num
     max_num=$(printf '%s\n' "${!COUNTRY_CODE[@]}" | sort -n | tail -1)
     local line_counter=0
+
     for i in $(seq 1 "$max_num"); do
         [ -z "${COUNTRY_CODE[$i]}" ] && continue
+
         if [ "$current_continent" != "${COUNTRY_CONTINENT[$i]}" ]; then
             current_continent="${COUNTRY_CONTINENT[$i]}"
             [ $line_counter -ne 0 ] && echo ""
@@ -311,8 +461,10 @@ show_menu() {
             echo "=== $current_continent ==="
             line_counter=0
         fi
+
         printf "  %3d) %-28s" "$i" "${COUNTRY_NAME[$i]}"
         ((line_counter++))
+
         if [ $((line_counter % 2)) -eq 0 ]; then
             echo ""
             line_counter=0
@@ -320,29 +472,33 @@ show_menu() {
             echo -n "   "
         fi
     done
+
     echo ""
     echo ""
     echo "   0) Deconnecter VPN et quitter"
     echo ""
     echo "════════════════════════════════════════════════════════════"
 }
+
 main_loop() {
     load_countries
+
     while true; do
         show_menu
         read -p "Choisissez un pays (0-100) : " choice
-        [ "$choice" = "0" ] && { sudo killall openvpn 2>/dev/null; echo ""; echo "VPN deconnecte ! Au revoir."; exit 0; }
+
+        [ "$choice" = "0" ] && { sudo killall openvpn 2>/dev/null;clear; echo ""; echo "VPN deconnecte ! Au revoir."; exit 0; }
+
         if [ -n "${COUNTRY_CODE[$choice]}" ]; then
             connect_to_country "${COUNTRY_CODE[$choice]}" "${COUNTRY_NAME[$choice]}"
             check_vpn
-            echo ""
-            echo "!!! Garder ce terminal ouvert pour garder le VPN actif !!!
-            echo ""
+
             echo "════════════════════════════════════════════════════════════"
             echo "  1) Changer de localisation"
             echo "  2) Deconnecter VPN et quitter"
             echo "════════════════════════════════════════════════════════════"
             read -p "Votre choix : " next_action
+
             case $next_action in
                 1) continue ;;
                 2) sudo killall openvpn 2>/dev/null; echo "Au revoir."; exit 0 ;;
@@ -354,19 +510,26 @@ main_loop() {
         fi
     done
 }
+
 check_dependencies
 first_time_setup
 check_and_setup_files
 setup_credentials
 main_loop
 MAINSCRIPT
+
 chmod +x "$VPN_DIR/cyberghost-vpn-manager.sh"
 echo "Gestionnaire VPN cree"
 sleep 1
+
+# 4. Creation de la base de donnees des pays
 clear
 print_header "ETAPE 4/5 : BASE DE DONNEES DES PAYS"
 echo ""
 cat > "$VPN_DIR/countries.conf" << 'EOF'
+# Format: numero|code_pays|nom_pays|continent
+# Source officielle: https://www.cyberghostvpn.com/vpn-server
+# EUROPE (1-47)
 1|de|Allemagne|Europe
 2|al|Albanie|Europe
 3|ad|Andorre|Europe
@@ -414,6 +577,7 @@ cat > "$VPN_DIR/countries.conf" << 'EOF'
 45|tr|Turquie|Europe
 46|ua|Ukraine|Europe
 47|gb|Royaume-Uni|Europe
+# AFRIQUE & MOYEN-ORIENT (48-57)
 48|dz|Algerie|Afrique & Moyen-Orient
 49|eg|Egypte|Afrique & Moyen-Orient
 50|ke|Kenya|Afrique & Moyen-Orient
@@ -424,6 +588,7 @@ cat > "$VPN_DIR/countries.conf" << 'EOF'
 55|il|Israel|Afrique & Moyen-Orient
 56|qa|Qatar|Afrique & Moyen-Orient
 57|sa|Arabie Saoudite|Afrique & Moyen-Orient
+# AMERIQUE (58-74)
 58|ar|Argentine|Amerique
 59|bs|Bahamas|Amerique
 60|bo|Bolivie|Amerique
@@ -441,6 +606,7 @@ cat > "$VPN_DIR/countries.conf" << 'EOF'
 72|us|Etats-Unis|Amerique
 73|uy|Uruguay|Amerique
 74|ve|Venezuela|Amerique
+# ASIE (75-98)
 75|am|Armenie|Asie
 76|bd|Bangladesh|Asie
 77|kh|Cambodge|Asie
@@ -465,60 +631,68 @@ cat > "$VPN_DIR/countries.conf" << 'EOF'
 96|tw|Taiwan|Asie
 97|th|Thailande|Asie
 98|vn|Viet Nam|Asie
+# OCEANIE (99-100)
 99|au|Australie|Oceanie
 100|nz|Nouvelle-Zelande|Oceanie
 EOF
 echo "Base de donnees creee (100 pays)"
 sleep 1
+
+# 5. Finalisation
 clear
 print_header "INSTALLATION TERMINEE !"
 echo ""
+
 if grep -q "alias vpn=" ~/.bashrc; then
     cat << 'EOF'
-    
 RACCOURCIS CREES (disponibles apres redemarrage du terminal) :
 
    - vpn      - Ouvre le menu VPN
-   
+
    - monip    - Affiche votre IP actuelle
-   
+
    - vpnoff   - Deconnecte le VPN rapidement
-   
+
 EOF
     touch "$VPN_DIR/.installed"
 fi
+
 cat << 'EOF'
 Fichiers crees :
    ~/vpn/cyberghost-vpn-manager.sh
    ~/vpn/countries.conf (100 pays)
-   
-════════════════════════════════════════════════════════════
 
+════════════════════════════════════════════════════════════
 Que voulez-vous faire maintenant ?
 
   1) Lancer le gestionnaire VPN maintenant
-  
-  2) Quitter (vous pourrez lancer avec: vpn)
+
+  2) Quitter
+
 EOF
 read -p "Votre choix (1-2) : " final_choice
+
 case $final_choice in
     1)
+        cleanup_installation
         echo ""
         echo "Lancement du gestionnaire VPN..."
         sleep 1
         bash "$VPN_DIR/cyberghost-vpn-manager.sh"
         ;;
     2)
+        cleanup_installation
         cat << 'EOF'
-        
+
 Installation terminee !
 
 Pour lancer le VPN plus tard, tapez : vpn
-
 (ou: bash ~/vpn/cyberghost-vpn-manager.sh)
+
 EOF
         ;;
     *)
+        cleanup_installation
         echo ""
         echo "Pour lancer le VPN, tapez : vpn"
         echo ""
