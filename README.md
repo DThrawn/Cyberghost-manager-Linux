@@ -33,6 +33,7 @@ Ouvrir le terminal dans les téléchargements
 
 `bash install-cyberghost.sh`
 
+**ou**
 
 Cloner le dépôt :
 `git clone https://github.com/DThrawn/Cyberghost-manager-linux.git` 
@@ -40,13 +41,13 @@ Cloner le dépôt :
 `cd Cyberghost-manager-linux | bash install-cyberghost.sh`
 
 
- ou
+ **ou**
  
  
 `curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash`
 
 
-Le script crée :
+**Le script crée :**
 - `~/vpn`
 - `~/vpn/cyberghost-vpn-manager.sh`
 - `~/vpn/countries.conf`
