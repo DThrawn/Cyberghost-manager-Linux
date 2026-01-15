@@ -31,7 +31,9 @@ Télécharger le fichier `install-cyberghost.sh`
 
 Ouvrir le terminal dans les téléchargements
 
-`bash install-cyberghost.sh`
+```bash
+bash install-cyberghost.sh
+```
 
 **ou**
 
@@ -70,7 +72,9 @@ Ouvrir un nouveau terminal (si vous avez choisi d’installer les alias), puis :
 
 
 - Sans alias, lancer directement :
-  `bash ~/vpn/cyberghost-vpn-manager.sh`
+```bash
+bash ~/vpn/cyberghost-vpn-manager.sh
+```
 
 
 ## Notes importantes
