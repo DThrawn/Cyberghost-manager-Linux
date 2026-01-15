@@ -96,7 +96,7 @@ Simplement éffacer le dossier : `~/vpn`
 sudo apt remove --purge openvpn openvpn-systemd-resolved && rm -rf ~/vpn && sed -i '/# Alias VPN CyberGhost/,+3d' ~/.bashrc && sudo killall openvpn 2>/dev/null
 ```
 
-## Ce que fait la commande
+**Ce que fait la commande**
 
 1. Supprime les packages : `openvpn` et `openvpn-systemd-resolved`
 2. Efface le dossier : `~/vpn` et tout son contenu
