@@ -41,7 +41,7 @@ bash install-cyberghost.sh
 
 Cloner le dépôt :
 ```bash
-git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cyberghost-manager-linux && bash install-cyberghost.sh
+git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cyberghost-manager-linux && bash install-cyberghost_fr.sh
 ```
 
 
@@ -49,7 +49,7 @@ git clone https://github.com/DThrawn/Cyberghost-manager-linux.git && cd Cybergho
  
  Via Curl
 ```bash
-curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost.sh | bash
+curl -L https://raw.githubusercontent.com/DThrawn/Cyberghost-manager-linux/main/install-cyberghost_fr.sh | bash
 ```
 
 
